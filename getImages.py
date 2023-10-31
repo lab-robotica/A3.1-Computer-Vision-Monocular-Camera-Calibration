@@ -30,8 +30,8 @@ import time
 # SET THE COUNTDOWN TIMER
 # for simplicity we set it to 3
 # We can also take this as input
-STEP_INTERVAL = int(2)
-TOTAL_NUMER_PHOTOS = 2
+STEP_INTERVAL = int(3)
+TOTAL_NUMER_PHOTOS = 20
 timer = STEP_INTERVAL
 
 # Open the camera
