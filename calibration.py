@@ -9,7 +9,6 @@ from pathlib import Path
 from configuration import (
     CHESSBOARD_SIZE,
     IMAGE_EXTENSIONS,
-    FRAME_SIZE,
     UNCALIBRATED_IMAGES_PATH,
     CALIBRATED_IMAGE_PATH,
 )
@@ -41,6 +40,7 @@ def main():
 
     images = glob.glob(f"{UNCALIBRATED_IMAGES_PATH.absolute()}/*.{IMAGE_EXTENSIONS}")
 
+    gray: MatLike | None = None
     for image in images:
         img = cv.imread(image)
         gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
@@ -66,14 +66,13 @@ def main():
 
     ############## CALIBRATION #######################################################
 
+    if gray is None:
+        raise RuntimeError("No images found")
     ret, cameraMatrix, dist, rvecs, tvecs = cv.calibrateCamera(
-        objpoints, imgpoints, FRAME_SIZE, None, None
+        objpoints, imgpoints, gray.shape[::-1], None, None
     )
 
     # Save the camera calibration result for later use (we won't worry about rvecs / tvecs)
-    pickle.dump((cameraMatrix, dist), open("calibration.pkl", "wb"))
-    pickle.dump(cameraMatrix, open("cameraMatrix.pkl", "wb"))
-    pickle.dump(dist, open("dist.pkl", "wb"))
 
     pickle.dump(
         (cameraMatrix, dist),

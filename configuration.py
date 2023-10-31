@@ -17,8 +17,6 @@ MODEL_NAME = os.getenv("MODEL_NAME", "")
 CHESSBOARD_SIZE_EVEN = os.getenv("CHESSBOARD_SIZE_EVEN", "")
 CHESSBOARD_SIZE_ODD = os.getenv("CHESSBOARD_SIZE_ODD", "")
 IMAGE_EXTENSIONS = os.getenv("IMAGE_EXTENSIONS", "")
-FRAME_SIZE_WIDTH = os.getenv("FRAME_SIZE_WIDTH", "")
-FRAME_SIZE_HEIGHT = os.getenv("FRAME_SIZE_HEIGHT", "")
 CAMERA_INDEX = os.getenv("CAMERA_INDEX", "")
 
 if not all(
@@ -27,8 +25,6 @@ if not all(
         CHESSBOARD_SIZE_EVEN,
         CHESSBOARD_SIZE_ODD,
         IMAGE_EXTENSIONS,
-        FRAME_SIZE_WIDTH,
-        FRAME_SIZE_HEIGHT,
     ]
 ):
     raise Exception(
@@ -36,7 +32,6 @@ if not all(
     )
 
 CHESSBOARD_SIZE = (int(CHESSBOARD_SIZE_EVEN), int(CHESSBOARD_SIZE_ODD))
-FRAME_SIZE = (int(FRAME_SIZE_WIDTH), int(FRAME_SIZE_HEIGHT))
 CAMERA_INDEX = int(CAMERA_INDEX)
 
 
