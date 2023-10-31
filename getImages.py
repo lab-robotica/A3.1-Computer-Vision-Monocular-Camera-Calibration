@@ -30,8 +30,9 @@ import time
 # SET THE COUNTDOWN TIMER
 # for simplicity we set it to 3
 # We can also take this as input
-TIMER = int(20)
-timer = TIMER
+STEP_INTERVAL = int(2)
+TOTAL_NUMER_PHOTOS = 2
+timer = STEP_INTERVAL
 
 # Open the camera
 cap = cv2.VideoCapture(
@@ -51,9 +52,13 @@ while True:
     # set the key for the countdown
     # to begin. Here we set q
     # if key pressed is q
+
+    if num >= TOTAL_NUMER_PHOTOS:
+        break
+
     if k == ord("q"):
         prev = time.time()
-        timer = TIMER
+        timer = STEP_INTERVAL
 
         while timer >= 0:
             ret, img = cap.read()
@@ -63,7 +68,7 @@ while True:
             # countdown using puttext
             font = cv2.FONT_HERSHEY_SIMPLEX
             cv2.putText(
-                img, str(timer), (200, 250), font, 7, (0, 255, 255), 4, cv2.LINE_AA
+                img, str(timer + 1), (200, 250), font, 7, (0, 255, 255), 4, cv2.LINE_AA
             )
             cv2.imshow("a", img)
             cv2.waitKey(125)
@@ -81,16 +86,16 @@ while True:
         else:
             ret, img = cap.read()
 
-            # Display the clicked frame for 2
-            # sec.You can increase time in
-            # waitKey also
+            img_name = f"{num}.png"
+            num += 1
+
             cv2.imshow("a", img)
 
             # time for which image displayed
             cv2.waitKey(2000)
 
-            # Save the frame
-            cv2.imwrite("camera.jpg", img)
+            cv2.imwrite(f"{UNCALIBRATED_IMAGES_PATH.absolute()}/{img_name}", img)
+            print("Image saved: " + img_name)
 
             # HERE we can reset the Countdown timer
             # if we want more Capture without closing
