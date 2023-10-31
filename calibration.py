@@ -60,7 +60,11 @@ def main():
         # Draw and display the corners
         cv.drawChessboardCorners(img, CHESSBOARD_SIZE, corners2, ret)
         cv.imshow("img", img)
-        # cv.waitKey(0)
+        cv.waitKey(0)
+        cv.imwrite(
+            f"{UNCALIBRATED_IMAGES_PATH.absolute()}/chessboard-{Path(image).name}.png",
+            img,
+        )
 
     cv.destroyAllWindows()
 
